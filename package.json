@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "build": "npm run prisma:generate && npm run prisma:migrate"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +20,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
-    "prisma": "^6.8.2"
+    "prisma": "^6.9.0"
   }
 }
