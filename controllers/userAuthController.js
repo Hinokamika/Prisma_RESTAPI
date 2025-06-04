@@ -27,37 +27,26 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
     const { email, password_hash } = req.body;
 
-    // Validate required fields before attempting to create
-    if (!email || !password_hash) {
-        return res.status(400).json({ error: 'Email and password are required' });
-    }
-
     try {
-        // Generate a unique user_auth_id (required field in schema)
-        const user_auth_id = `user_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-
         const newUser = await prisma.user_authentication.create({
             data: {
                 email,
-                password_hash,
-                user_auth_id
+                password_hash
             }
         });
 
         res.status(201).json(newUser);
-    } catch (error) {        console.error('Error creating user:', error);
+    } catch (error) {
+        console.error('Error creating user:', error);
         
         // Handle specific error types
         if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
             return res.status(409).json({ error: 'Email already exists' });
-        } else if (error.code === 'P2002' && error.meta?.target?.includes('user_auth_id')) {
-            // This should be rare due to our generation method, but handle it just in case
-            return res.status(409).json({ error: 'User ID collision, please try again' });
         } else if (error.code === 'P2000') {
             return res.status(400).json({ error: 'Invalid input data' });
+        } else if (!email || !password_hash) {
+            return res.status(400).json({ error: 'Email and password are required' });
         } else {
-            // Log the full error details in development for debugging
-            console.error('Detailed error:', JSON.stringify(error, null, 2));
             return res.status(500).json({ 
                 error: 'Internal server error',
                 message: process.env.NODE_ENV === 'development' ? error.message : undefined
