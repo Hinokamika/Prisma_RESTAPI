@@ -34,13 +34,11 @@ const createUser = async (req, res) => {
 
     try {
         // Generate a unique user_auth_id (required by schema)
-        const user_auth_id = `user_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
         const newUser = await prisma.user_authentication.create({
             data: {
                 email,
                 password_hash,
-                user_auth_id
             }
         });
 
