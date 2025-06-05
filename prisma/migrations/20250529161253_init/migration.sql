@@ -3,7 +3,7 @@ CREATE TABLE `user_authentication` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(255) NOT NULL,
     `password_hash` VARCHAR(255) NOT NULL,
-    `user_auth_id` VARCHAR(50) NOT NULL,
+    `user_auth_id` VARCHAR(50) NULL,
     `created_at` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
     `last_login` TIMESTAMP(0) NULL,
 

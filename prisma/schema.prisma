@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -12,7 +11,7 @@ model user_authentication {
   id            Int          @id @default(autoincrement())
   email         String       @unique(map: "email") @db.VarChar(255)
   password_hash String       @db.VarChar(255)
-  user_auth_id  String       @unique(map: "user_auth_id") @db.VarChar(50)
+  user_auth_id  String?      @unique(map: "user_auth_id") @db.VarChar(50)
   created_at    DateTime?    @default(now()) @db.Timestamp(0)
   last_login    DateTime?    @db.Timestamp(0)
   user_detail   user_detail?

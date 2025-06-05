@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "build": "npm run prisma:generate && npm run prisma:migrate"
   },
   "keywords": [],
   "author": "",
@@ -12,10 +15,11 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^6.8.2",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "rsync": "^0.6.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
-    "prisma": "^6.8.2"
+    "prisma": "^6.9.0"
   }
 }
